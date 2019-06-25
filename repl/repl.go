@@ -21,8 +21,11 @@ func Start(in io.Reader, out io.Writer) {
 			return
 		}
 		line := scanner.Text()
+
+		// Interpreter creates a new lexer for every new line
 		l := lexer.New(line)
 
+		// Iterate every token in the line
 		for tok := l.NextToken(); tok.Type != token.EOF; tok = l.NextToken() {
 			fmt.Printf("%+v\n", tok)
 		}
