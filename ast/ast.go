@@ -21,12 +21,12 @@ type Program struct {
 }
 
 type Identifier struct {
-	Token token.Token // token.IDENT
+	Token *token.Token // token.IDENT
 	Value string
 }
 
 type LetStatement struct {
-	Token token.Token // token.LET
+	Token *token.Token // token.LET
 	Name  *Identifier
 	Value Expression
 }
