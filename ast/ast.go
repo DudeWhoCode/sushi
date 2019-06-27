@@ -42,7 +42,7 @@ type ReturnStatement struct {
 }
 
 type ExpressionStatement struct {
-	Token      token.Token // the first token of expression
+	Token      *token.Token // the first token of expression
 	Expression Expression
 }
 
