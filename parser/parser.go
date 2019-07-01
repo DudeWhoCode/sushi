@@ -156,6 +156,7 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 	}
 	leftExp := prefix()
 
+	// check for end of statement and whether right binding power of current token < left binding power of next token
 	for !p.peekTokenIs(token.SEMICOLON) && precedence < p.peekPrecedence() {
 		infix := p.infixParseFns[p.peekToken.Type]
 		if infix == nil {
@@ -163,6 +164,7 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 		}
 		p.nextToken()
 
+		// recursion starts
 		leftExp = infix(leftExp)
 	}
 
