@@ -223,7 +223,7 @@ func (bs *BlockStatement) String() string {
 	return out.String()
 }
 
-func (fl *FunctionLiteral) statementNode()       {}
+func (fl *FunctionLiteral) expressionNode()      {}
 func (fl *FunctionLiteral) TokenLiteral() string { return fl.Token.Literal }
 
 func (fl *FunctionLiteral) String() string {
