@@ -6,7 +6,7 @@ import (
 	"io"
 
 	"github.com/dudewhocode/interpreter/lexer"
-	"github.com/dudewhocode/interpreter/token"
+	"github.com/dudewhocode/interpreter/parser"
 )
 
 const PROMT = "➜ "
@@ -24,10 +24,21 @@ func Start(in io.Reader, out io.Writer) {
 
 		// Interpreter creates a new lexer for every new line
 		l := lexer.New(line)
+		p := parser.New(l)
 
-		// Iterate every token in the line
-		for tok := l.NextToken(); tok.Type != token.EOF; tok = l.NextToken() {
-			fmt.Printf("%+v\n", tok)
+		program := p.ParseProgram()
+		if len(p.Errors()) != 0 {
+			printParserErrors(out, p.Errors())
+			continue
 		}
+		io.WriteString(out, program.String())
+		io.WriteString(out, "\n")
+	}
+}
+
+func printParserErrors(out io.Writer, errors []string) {
+	io.WriteString(out, "Error while parsing: \n")
+	for _, msg := range errors {
+		io.WriteString(out, "\t"+msg+"\n")
 	}
 }
