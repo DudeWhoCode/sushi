@@ -25,11 +25,11 @@ type Boolean struct {
 
 type Null struct{}
 
-func (i *Integer) Inspect() string { return fmt.Sprintf("%d", i.Value) }
-func (i *Integer) Type() string    { return INTEGEROBJ }
+func (i *Integer) Inspect() string  { return fmt.Sprintf("%d", i.Value) }
+func (i *Integer) Type() ObjectType { return INTEGEROBJ }
 
-func (b *Boolean) Inspect() string { return fmt.Sprintf("%t", b.Value) }
-func (b *Boolean) Type() string    { return BOOLEANOBJ }
+func (b *Boolean) Inspect() string  { return fmt.Sprintf("%t", b.Value) }
+func (b *Boolean) Type() ObjectType { return BOOLEANOBJ }
 
-func (n *Null) Inspect() string { return "null" }
-func (n *Null) Type() string    { return NULLOBJ }
+func (n *Null) Inspect() string  { return "null" }
+func (n *Null) Type() ObjectType { return NULLOBJ }
