@@ -21,9 +21,9 @@ func Eval(node ast.Node) object.Object {
 
 	// expressions
 	case *ast.IntegerLiteral:
-		return TRUE
+		return &object.Integer{Value: node.Value}
 	case *ast.Boolean:
-		return FALSE
+		return nativeBoolToBoolObject(node.Value)
 	}
 	return nil
 }
@@ -34,4 +34,11 @@ func evalStatements(stmts []ast.Statement) object.Object {
 		result = Eval(statement)
 	}
 	return result
+}
+
+func nativeBoolToBoolObject(input bool) *object.Boolean {
+	if input {
+		return TRUE
+	}
+	return FALSE
 }
