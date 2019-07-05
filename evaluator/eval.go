@@ -6,6 +6,11 @@ import (
 	"github.com/dudewhocode/interpreter/object"
 )
 
+var (
+	TRUE  = &object.Boolean{Value: true}
+	FALSE = &object.Boolean{Value: false}
+)
+
 func Eval(node ast.Node) object.Object {
 	switch node := node.(type) {
 	// statements
@@ -16,9 +21,9 @@ func Eval(node ast.Node) object.Object {
 
 	// expressions
 	case *ast.IntegerLiteral:
-		return &object.Integer{Value: node.Value}
+		return TRUE
 	case *ast.Boolean:
-		return &object.Boolean{Value: node.Value}
+		return FALSE
 	}
 	return nil
 }
