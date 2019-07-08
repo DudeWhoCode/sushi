@@ -61,7 +61,7 @@ func evalBlockStatement(block *ast.BlockStatement) object.Object {
 	var result object.Object
 
 	for _, stmt := range block.Statements {
-		result := Eval(stmt)
+		result = Eval(stmt)
 
 		if result != nil && result.Type() == object.RETURNVALUEOBJ {
 			return result
