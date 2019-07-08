@@ -35,6 +35,15 @@ type ReturnValue struct {
 	Value Object
 }
 
+type Environment struct {
+	store map[string]Object
+}
+
+func NewEnvironment() *Environment {
+	s := make(map[string]Object)
+	return &Environment{store: s}
+}
+
 func (i *Integer) Inspect() string  { return fmt.Sprintf("%d", i.Value) }
 func (i *Integer) Type() ObjectType { return INTEGEROBJ }
 
@@ -49,3 +58,12 @@ func (rv *ReturnValue) Type() ObjectType { return RETURNVALUEOBJ }
 
 func (e *Error) Inspect() string  { return "ERROR: " + e.Message }
 func (e *Error) Type() ObjectType { return ERROROBJ }
+
+func (e *Environment) Get(name string) (Object, bool) {
+	obj, ok := e.store[name]
+	return obj, ok
+}
+func (e *Environment) Set(name string, val Object) Object {
+	e.store[name] = val
+	return val
+}
