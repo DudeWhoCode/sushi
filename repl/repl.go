@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/dudewhocode/interpreter/object"
+
 	"github.com/dudewhocode/interpreter/evaluator"
 	"github.com/dudewhocode/interpreter/lexer"
 	"github.com/dudewhocode/interpreter/parser"
@@ -14,7 +16,7 @@ const PROMT = "➜ "
 
 func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
-
+	env := object.NewEnvironment()
 	for {
 		fmt.Printf(PROMT)
 		scanned := scanner.Scan()
@@ -32,7 +34,7 @@ func Start(in io.Reader, out io.Writer) {
 			printParserErrors(out, p.Errors())
 			continue
 		}
-		evaluated := evaluator.Eval(program)
+		evaluated := evaluator.Eval(program, env)
 		if evaluated != nil {
 			io.WriteString(out, evaluated.Inspect())
 			io.WriteString(out, "\n")
