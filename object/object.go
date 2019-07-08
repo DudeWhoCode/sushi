@@ -39,5 +39,5 @@ func (b *Boolean) Type() ObjectType { return BOOLEANOBJ }
 func (n *Null) Inspect() string  { return "null" }
 func (n *Null) Type() ObjectType { return NULLOBJ }
 
-func (rv *ReturnValue) Inspect() string { return rv.Value.Inspect() }
-func (n *ReturnValue) Type() ObjectType { return RETURNVALUEOBJ }
+func (rv *ReturnValue) Inspect() string  { return rv.Value.Inspect() }
+func (rv *ReturnValue) Type() ObjectType { return RETURNVALUEOBJ }
