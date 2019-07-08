@@ -50,8 +50,11 @@ func evalProgram(program *ast.Program) object.Object {
 	for _, statement := range program.Statements {
 		result = Eval(statement)
 
-		if returnValue, ok := result.(*object.ReturnValue); ok {
-			return returnValue.Value
+		switch result := result.(type) {
+		case *object.ReturnValue:
+			return result.Value
+		case *object.Error:
+			return result
 		}
 	}
 	return result
@@ -63,8 +66,11 @@ func evalBlockStatement(block *ast.BlockStatement) object.Object {
 	for _, stmt := range block.Statements {
 		result = Eval(stmt)
 
-		if result != nil && result.Type() == object.RETURNVALUEOBJ {
-			return result
+		if result != nil {
+			rt := result.Type()
+			if rt == object.RETURNVALUEOBJ || rt == object.ERROROBJ {
+				return result
+			}
 		}
 	}
 	return result
