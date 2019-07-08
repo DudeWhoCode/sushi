@@ -55,6 +55,19 @@ func evalProgram(program *ast.Program) object.Object {
 	return result
 }
 
+func evalBlockStatement(block *ast.BlockStatement) object.Object {
+	var result object.Object
+
+	for _, stmt := range block.Statements {
+		result := Eval(stmt)
+
+		if result != nil && result.Type() == object.RETURNVALUEOBJ {
+			return result
+		}
+	}
+	return result
+}
+
 func nativeBoolToBoolObject(input bool) *object.Boolean {
 	if input {
 		return TRUE
