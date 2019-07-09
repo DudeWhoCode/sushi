@@ -12,11 +12,22 @@ import (
 	"github.com/dudewhocode/interpreter/parser"
 )
 
-const PROMT = "➜ "
+const (
+	PROMT   = ">>> "
+	WELCOME = `
+██████╗  ██████╗  █████╗         ██╗   ██╗     ██████╗    ██╗
+██╔══██╗██╔═══██╗██╔══██╗        ██║   ██║    ██╔═████╗  ███║
+██████╔╝██║   ██║███████║        ██║   ██║    ██║██╔██║  ╚██║
+██╔══██╗██║   ██║██╔══██║        ╚██╗ ██╔╝    ████╔╝██║   ██║
+██████╔╝╚██████╔╝██║  ██║         ╚████╔╝     ╚██████╔╝██╗██║
+╚═════╝  ╚═════╝ ╚═╝  ╚═╝          ╚═══╝       ╚═════╝ ╚═╝╚═╝
+`
+)
 
 func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
 	env := object.NewEnvironment()
+	io.WriteString(out, WELCOME)
 	for {
 		fmt.Printf(PROMT)
 		scanned := scanner.Scan()
