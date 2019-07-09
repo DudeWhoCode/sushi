@@ -28,6 +28,7 @@ func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
 	env := object.NewEnvironment()
 	io.WriteString(out, WELCOME)
+	io.WriteString(out, "\n")
 	for {
 		fmt.Printf(PROMT)
 		scanned := scanner.Scan()
