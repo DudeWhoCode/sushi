@@ -7,5 +7,4 @@
                                         ╚═════╝  ╚═════╝ ╚═╝  ╚═╝
 
 
-## A simple interpreted programming language written using Go. 
-(for educational purposes 😉)
+## A simple interpreted programming language written using Go.  
