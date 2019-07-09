@@ -12,8 +12,9 @@ const (
 	EOF     TokenType = "EOF"
 
 	// Identifiers and literals
-	IDENT TokenType = "IDENT" // add, foobar, x, y, z
-	INT   TokenType = "INT"   // integer numbers
+	IDENT  TokenType = "IDENT" // add, foobar, x, y, z
+	INT    TokenType = "INT"   // integer numbers
+	STRING TokenType = "STRING"
 
 	// Operators
 	ASSIGN   TokenType = "="
