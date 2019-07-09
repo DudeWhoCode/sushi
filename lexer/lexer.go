@@ -66,6 +66,17 @@ func (l *Lexer) skipWhiteSpace() {
 	}
 }
 
+func (l *Lexer) readString() string {
+	startPosition := l.position + 1
+	for {
+		l.readChar()
+		if l.ch == '"' || l.ch == 0 {
+			break
+		}
+	}
+	return l.input[startPosition:l.position]
+}
+
 func (l *Lexer) NextToken() *token.Token {
 	var tok *token.Token
 	l.skipWhiteSpace()
@@ -114,6 +125,9 @@ func (l *Lexer) NextToken() *token.Token {
 		tok = token.NewToken(token.RBRACE, string(l.ch))
 	case 0:
 		tok = token.NewToken(token.EOF, "")
+	case '"':
+		tok = token.NewToken(token.STRING, "")
+		tok.Literal = l.readString()
 	default:
 		if isLetter(l.ch) {
 			literal := l.readIdentifier()
