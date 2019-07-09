@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/dudewhocode/interpreter/ast"
+	"github.com/dudewhocode/boa/ast"
 )
 
 type ObjectType string

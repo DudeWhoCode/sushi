@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strings"
 
-	"github.com/dudewhocode/interpreter/token"
+	"github.com/dudewhocode/boa/token"
 )
 
 type Node interface {

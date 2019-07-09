@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/dudewhocode/interpreter/ast"
-	"github.com/dudewhocode/interpreter/lexer"
-	"github.com/dudewhocode/interpreter/token"
+	"github.com/dudewhocode/boa/ast"
+	"github.com/dudewhocode/boa/lexer"
+	"github.com/dudewhocode/boa/token"
 )
 
 const (

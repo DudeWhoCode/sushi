@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/dudewhocode/interpreter/object"
+	"github.com/dudewhocode/boa/object"
 
-	"github.com/dudewhocode/interpreter/evaluator"
-	"github.com/dudewhocode/interpreter/lexer"
-	"github.com/dudewhocode/interpreter/parser"
+	"github.com/dudewhocode/boa/evaluator"
+	"github.com/dudewhocode/boa/lexer"
+	"github.com/dudewhocode/boa/parser"
 )
 
 const (
