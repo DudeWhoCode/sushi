@@ -355,7 +355,7 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 		// precedence of call expressions
 		{
 			"a + add(b * c) + d",
-			"((a + add((b * c))) + d",
+			"((a + add((b * c))) + d)",
 		},
 		{
 			"add(a, b, 1, 2 * 3, 4 + 5, add(6, 7 * 8))",
