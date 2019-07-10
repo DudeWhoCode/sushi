@@ -32,6 +32,8 @@ const (
 	// Delimiters
 	COMMA     TokenType = ","
 	SEMICOLON TokenType = ";"
+	LBRACKET  TokenType = "["
+	RBRACKET  TokenType = "]"
 
 	LPAREN TokenType = "("
 	RPAREN TokenType = ")"
