@@ -100,7 +100,7 @@ type StringLiteral struct {
 }
 
 type ArrayLiteral struct {
-	Token    token.Token // '[', ']' token
+	Token    *token.Token // '[', ']' token
 	Elements []Expression
 }
 
