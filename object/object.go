@@ -88,4 +88,4 @@ func (f *Function) Inspect() string {
 func (f *Function) Type() ObjectType { return FUNCTIONOBJ }
 
 func (s *String) Inspect() string  { return s.Value }
-func (s *String) Type() ObjectType { return RETURNVALUEOBJ }
+func (s *String) Type() ObjectType { return STRINGOBJ }
