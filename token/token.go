@@ -34,6 +34,7 @@ const (
 	SEMICOLON TokenType = ";"
 	LBRACKET  TokenType = "["
 	RBRACKET  TokenType = "]"
+	COLON     TokenType = ":"
 
 	LPAREN TokenType = "("
 	RPAREN TokenType = ")"
