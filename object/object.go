@@ -21,6 +21,7 @@ const (
 	STRINGOBJ      = "STRING"
 	BUILTINOBJ     = "BUILTIN"
 	ARRAYOBJ       = "ARRAY"
+	HASHOBJ        = "HASH"
 )
 
 type Object interface {
@@ -68,6 +69,20 @@ type Array struct {
 type HashKey struct {
 	Type  ObjectType
 	Value uint64
+}
+
+type HashPair struct {
+	Key   Object
+	Value Object
+}
+
+type Hash struct {
+	Pairs map[HashKey]HashPair // HashPair is necessary to keep track of users key and values for each hashkey
+}
+
+// Hashable interface is used to check if the given object is usable as hash key
+type Hashable interface {
+	HashKey() HashKey
 }
 
 func (i *Integer) Inspect() string  { return fmt.Sprintf("%d", i.Value) }
@@ -145,3 +160,18 @@ func (s *String) HashKey() HashKey {
 
 	return HashKey{Type: s.Type(), Value: h.Sum64()}
 }
+
+func (h *Hash) Inspect() string {
+	var out bytes.Buffer
+
+	pairs := []string{}
+	for _, pair := range h.Pairs {
+		pairs = append(pairs, fmt.Sprintf("%s: %s", pair.Key.Inspect(), pair.Value.Inspect()))
+	}
+
+	out.WriteString("{")
+	out.WriteString(strings.Join(pairs, ", "))
+	out.WriteString("}")
+	return out.String()
+}
+func (h *Hash) Type() ObjectType { return HASHOBJ }
