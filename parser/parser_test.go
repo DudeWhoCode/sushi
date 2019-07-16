@@ -205,6 +205,7 @@ func TestParsingPrefixExpressions(t *testing.T) {
 	}{
 		{"!5", "!", 5},
 		{"-15;", "-", 15},
+		{"-3.14;", "-", 3.14},
 		{"!true", "!", true},
 		{"!false", "!", false},
 	}
