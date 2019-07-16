@@ -224,6 +224,24 @@ func testIntegerLiteral(t *testing.T, il ast.Expression, value int64) bool {
 	return true
 }
 
+func testFloatLiteral(t *testing.T, fl ast.Expression, value float64) bool {
+	float, ok := fl.(*ast.FloatLiteral)
+	if !ok {
+		t.Errorf("fl not *ast.FloatLiteral. got=%T", fl)
+		return false
+	}
+
+	if float.Value != value {
+		t.Errorf("float.Value not %f. got=%f", value, float.Value)
+	}
+	// TODO: %.2f limits the test cases only to 2 precisions. Fix this hack
+	if float.TokenLiteral() != fmt.Sprintf("%.2f", value) {
+		t.Errorf("float.TokenLiteral() not %f. got=%s", value, float.TokenLiteral())
+	}
+
+	return true
+}
+
 func TestParsingInfixExpressions(t *testing.T) {
 	infixTests := []struct {
 		input      string
@@ -839,6 +857,8 @@ func testLiteralExpression(t *testing.T, exp ast.Expression, expected interface{
 		return testIdentifier(t, exp, v)
 	case bool:
 		return testBooleanLiteral(t, exp, v)
+	case float64:
+		return testFloatLiteral(t, exp, v)
 	}
 	t.Errorf("type of exp not handled. got=%T", exp)
 	return false
