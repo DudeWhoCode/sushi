@@ -115,6 +115,11 @@ type HashLiteral struct {
 	Pairs map[Expression]Expression
 }
 
+type FloatLiteral struct {
+	Token *token.Token
+	Value float64
+}
+
 func (p *Program) TokenLiteral() string {
 	if len(p.Statements) > 0 {
 		return p.Statements[0].TokenLiteral()
@@ -188,6 +193,10 @@ func (il *IntegerLiteral) String() string { return il.Token.Literal }
 
 func (pe *PrefixExpression) expressionNode()      {}
 func (pe *PrefixExpression) TokenLiteral() string { return pe.Token.Literal }
+
+func (fl *FloatLiteral) expressionNode()      {}
+func (fl *FloatLiteral) TokenLiteral() string { return fl.Token.Literal }
+func (fl *FloatLiteral) String() string       { return fl.Token.Literal }
 
 func (pe *PrefixExpression) String() string {
 	var out bytes.Buffer
