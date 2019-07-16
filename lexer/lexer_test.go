@@ -30,6 +30,8 @@ func TestNextToken(t *testing.T) {
 	"foo bar"
 	[1, 2];
 	{"foo": "bar"}
+	10.25
+	let f = 20.543
 	`
 
 	tests := []struct {
@@ -122,6 +124,11 @@ func TestNextToken(t *testing.T) {
 		{token.COLON, ":"},
 		{token.STRING, "bar"},
 		{token.RBRACE, "}"},
+		{token.FLOAT, "10.25"},
+		{token.LET, "let"},
+		{token.IDENT, "f"},
+		{token.ASSIGN, "="},
+		{token.FLOAT, "20.543"},
 		{token.EOF, ""},
 	}
 
