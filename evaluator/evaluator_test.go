@@ -1,11 +1,13 @@
 package evaluator
 
 import (
+	"math"
 	"testing"
 
 	"github.com/dudewhocode/boa/lexer"
 	"github.com/dudewhocode/boa/object"
 	"github.com/dudewhocode/boa/parser"
+	"github.com/google/go-cmp/cmp"
 )
 
 func TestEvalIntegerExpression(t *testing.T) {
@@ -33,6 +35,34 @@ func TestEvalIntegerExpression(t *testing.T) {
 	for _, tt := range tests {
 		evaluated := testEval(tt.input)
 		testIntegerObject(t, evaluated, tt.expected)
+	}
+}
+
+func TestEvalFloatExpression(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected float64
+	}{
+		{"3.14", 3.14},
+		{"1.3454", 1.3454},
+		{"-5.1235", -5.1235},
+		{"-10.1112", -10.1112},
+		{"5.54 + 5.22 + 5.562 + 5.323 - 10.124", 11.521000},
+		{"2.25 * 2.25 * 2.25 * 2.25 * 2.25", 57.6650390625},
+		{"-50.05 + 100.10 + -50.05", 0},
+		{"5.5 * 2.5 + 10.5", 24.25},
+		{"5.25 + 2.25 * 10.25", 28.3125},
+		{"20.10 + 2 * -10.05", 0},
+		{"50.5 / 2.5 * 2.5 + 10", 60.5},
+		{"2.75 * (5.99 + 10.99)", 46.695},
+		{"3.1 * 3.1 * 3.1 + 10.1", 39.891000},
+		{"3.25 * (3.555 * 3.124) + 10.00", 46.093915},
+		{"(5.01 + 10.02 * 2.03 + 15.04 / 3.05) * 2.09 + -10.08", 53.208852},
+	}
+
+	for _, tt := range tests {
+		evaluated := testEval(tt.input)
+		testFloatObject(t, evaluated, tt.expected)
 	}
 }
 
@@ -522,6 +552,32 @@ func testIntegerObject(t *testing.T, obj object.Object, expected int64) bool {
 	}
 	if result.Value != expected {
 		t.Errorf("object has wrong value. got=%d, want=%d", result.Value, expected)
+		return false
+	}
+	return true
+}
+
+func testFloatObject(t *testing.T, obj object.Object, expected float64) bool {
+	const tolerance = .00001
+	opt := cmp.Comparer(func(x, y float64) bool {
+		diff := math.Abs(x - y)
+		mean := math.Abs(x+y) / 2.0
+		if math.IsNaN(diff / mean) {
+			return true
+		}
+		return (diff / mean) < tolerance
+	})
+
+	result, ok := obj.(*object.Float)
+	if !ok {
+		t.Errorf("object is not Float. got=%T (%+v)", obj, obj)
+		return false
+	}
+
+	if !cmp.Equal(result.Value, expected, opt) {
+		t.Error(result.Value)
+		t.Error(expected)
+		t.Errorf("object has wrong value. got=%f, want=%f", result.Value, expected)
 		return false
 	}
 	return true
