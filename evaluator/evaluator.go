@@ -175,12 +175,16 @@ func evalBangOperatorExpression(right object.Object) object.Object {
 }
 
 func evalMinusPrefixOperatorExpression(right object.Object) object.Object {
-	if right.Type() != object.INTEGEROBJ {
+	switch {
+	case right.Type() == object.INTEGEROBJ:
+		value := right.(*object.Integer).Value
+		return &object.Integer{Value: -value}
+	case right.Type() == object.FLOATOBJ:
+		value := right.(*object.Float).Value
+		return &object.Float{Value: -value}
+	default:
 		return newError("unknown operator: -%s", right.Type())
 	}
-
-	value := right.(*object.Integer).Value
-	return &object.Integer{Value: -value}
 }
 
 func evalInfixExpression(operator string, left, right object.Object) object.Object {
