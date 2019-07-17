@@ -191,6 +191,16 @@ func evalInfixExpression(operator string, left, right object.Object) object.Obje
 	switch {
 	case left.Type() == object.INTEGEROBJ && right.Type() == object.INTEGEROBJ:
 		return evalIntegerInfixExpression(operator, left, right)
+	case left.Type() == object.FLOATOBJ && right.Type() == object.FLOATOBJ:
+		return evalFloatInfixExpression(operator, left, right)
+	case left.Type() == object.INTEGEROBJ && right.Type() == object.FLOATOBJ:
+		leftVal := left.(*object.Integer).Value
+		castedLeft := &object.Float{Value: float64(leftVal)}
+		return evalFloatInfixExpression(operator, castedLeft, right)
+	case left.Type() == object.FLOATOBJ && right.Type() == object.INTEGEROBJ:
+		rightVal := right.(*object.Integer).Value
+		castedRight := &object.Float{Value: float64(rightVal)}
+		return evalFloatInfixExpression(operator, left, castedRight)
 	case operator == "==":
 		// doing pointer comparisions as we dont create new objects for true/false
 		return nativeBoolToBoolObject(left == right)
