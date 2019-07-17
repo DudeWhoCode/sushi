@@ -13,6 +13,7 @@ type ObjectType string
 
 const (
 	INTEGEROBJ     = "INTEGER"
+	FLOATOBJ       = "FLOAT"
 	BOOLEANOBJ     = "BOOLEAN"
 	NULLOBJ        = "NULL"
 	RETURNVALUEOBJ = "RETURN_VALUE"
@@ -31,6 +32,10 @@ type Object interface {
 
 type Integer struct {
 	Value int64
+}
+
+type Float struct {
+	Value float64
 }
 
 type Boolean struct {
@@ -87,6 +92,9 @@ type Hashable interface {
 
 func (i *Integer) Inspect() string  { return fmt.Sprintf("%d", i.Value) }
 func (i *Integer) Type() ObjectType { return INTEGEROBJ }
+
+func (f *Float) Inspect() string  { return fmt.Sprintf("%f", f.Value) }
+func (f *Float) Type() ObjectType { return FLOATOBJ }
 
 func (b *Boolean) Inspect() string  { return fmt.Sprintf("%t", b.Value) }
 func (b *Boolean) Type() ObjectType { return BOOLEANOBJ }
