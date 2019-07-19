@@ -32,6 +32,10 @@ func TestNextToken(t *testing.T) {
 	{"foo": "bar"}
 	10.25
 	let f = 20.543
+	3.14 != 1.45;
+	4.15 == 4.15;
+	let pi = 3.14;
+	let twopi = 3.14 * 2;
 	`
 
 	tests := []struct {
@@ -129,6 +133,26 @@ func TestNextToken(t *testing.T) {
 		{token.IDENT, "f"},
 		{token.ASSIGN, "="},
 		{token.FLOAT, "20.543"},
+		{token.FLOAT, "3.14"},
+		{token.NOTEQ, "!="},
+		{token.FLOAT, "1.45"},
+		{token.SEMICOLON, ";"},
+		{token.FLOAT, "4.15"},
+		{token.EQ, "=="},
+		{token.FLOAT, "4.15"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENT, "pi"},
+		{token.ASSIGN, "="},
+		{token.FLOAT, "3.14"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENT, "twopi"},
+		{token.ASSIGN, "="},
+		{token.FLOAT, "3.14"},
+		{token.ASTERISK, "*"},
+		{token.INT, "2"},
+		{token.SEMICOLON, ";"},
 		{token.EOF, ""},
 	}
 
