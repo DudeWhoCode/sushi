@@ -93,7 +93,9 @@ type Hashable interface {
 func (i *Integer) Inspect() string  { return fmt.Sprintf("%d", i.Value) }
 func (i *Integer) Type() ObjectType { return INTEGEROBJ }
 
-func (f *Float) Inspect() string  { return fmt.Sprintf("%f", f.Value) }
+func (f *Float) Inspect() string {
+	return fmt.Sprintf("%g", f.Value)
+}
 func (f *Float) Type() ObjectType { return FLOATOBJ }
 
 func (b *Boolean) Inspect() string  { return fmt.Sprintf("%t", b.Value) }
