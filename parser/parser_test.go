@@ -266,8 +266,7 @@ func testFloatLiteral(t *testing.T, fl ast.Expression, value float64) bool {
 	if float.Value != value {
 		t.Errorf("float.Value not %f. got=%f", value, float.Value)
 	}
-	// TODO: %.2f limits the test cases only to 2 precisions. Fix this hack
-	if float.TokenLiteral() != fmt.Sprintf("%.2f", value) {
+	if float.TokenLiteral() != fmt.Sprintf("%g", value) {
 		t.Errorf("float.TokenLiteral() not %f. got=%s", value, float.TokenLiteral())
 	}
 
