@@ -17,6 +17,7 @@ func TestLetStatements(t *testing.T) {
 		{"let x = 5;", "x", 5},
 		{"let y = true;", "y", true},
 		{"let foobar = y;", "foobar", "y"},
+		{"let pi = 3.14;", "pi", 3.14},
 	}
 
 	for _, tt := range tests {
@@ -85,6 +86,7 @@ func TestReturnStatements(t *testing.T) {
 		{"return 5;", 5},
 		{"return true;", true},
 		{"return foobar;", "foobar"},
+		{"return 0.5432", 0.5432},
 	}
 
 	for _, tt := range tests {
@@ -371,6 +373,9 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 		},
 		{"3 + 4 * 5 == 3 * 1 + 4 * 5",
 			"((3 + (4 * 5)) == ((3 * 1) + (4 * 5)))",
+		},
+		{"3.14 + 4.15 * 5.33 == 3.16 * 1.0025 + 4.00 * 5",
+			"((3.14 + (4.15 * 5.33)) == ((3.16 * 1.0025) + (4.00 * 5)))",
 		},
 		{
 			"true",
@@ -691,6 +696,11 @@ func TestCallExpressionParameterParsing(t *testing.T) {
 			expectedIdent: "add",
 			expectedArgs:  []string{"1", "(2 * 3)", "(4 + 5)"},
 		},
+		{
+			input:         "add(1.124, 2.25 * 3.00, 4 + 5.15);",
+			expectedIdent: "add",
+			expectedArgs:  []string{"1.124", "(2.25 * 3.00)", "(4 + 5.15)"},
+		},
 	}
 
 	for _, tt := range tests {
@@ -829,7 +839,7 @@ func TestParsingEmptyHashLiteral(t *testing.T) {
 }
 
 func TestParsingHashLiteralsWithExpressions(t *testing.T) {
-	input := `{"one": 0 + 1, "two": 10 - 8, "three": 15 / 5}`
+	input := `{"one": 0 + 1, "two": 10.15 - 8, "three": 15 / 5}`
 	l := lexer.New(input)
 	p := New(l)
 	program := p.ParseProgram()
@@ -846,7 +856,7 @@ func TestParsingHashLiteralsWithExpressions(t *testing.T) {
 		testInfixExpression(t, e, 0, "+", 1)
 	},
 		"two": func(e ast.Expression) {
-			testInfixExpression(t, e, 10, "-", 8)
+			testInfixExpression(t, e, 10.15, "-", 8)
 		},
 		"three": func(e ast.Expression) {
 			testInfixExpression(t, e, 15, "/", 5)
