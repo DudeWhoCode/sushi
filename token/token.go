@@ -15,6 +15,7 @@ const (
 	IDENT  TokenType = "IDENT" // add, foobar, x, y, z
 	INT    TokenType = "INT"   // integer numbers
 	STRING TokenType = "STRING"
+	FLOAT  TokenType = "FLOAT"
 
 	// Operators
 	ASSIGN   TokenType = "="
