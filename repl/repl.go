@@ -5,22 +5,17 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/dudewhocode/boa/object"
+	"github.com/dudewhocode/sushi/object"
 
-	"github.com/dudewhocode/boa/evaluator"
-	"github.com/dudewhocode/boa/lexer"
-	"github.com/dudewhocode/boa/parser"
+	"github.com/dudewhocode/sushi/evaluator"
+	"github.com/dudewhocode/sushi/lexer"
+	"github.com/dudewhocode/sushi/parser"
 )
 
 const (
 	PROMT   = ">>> "
 	WELCOME = `
-	██████╗  ██████╗  █████╗         ██╗   ██╗     ██████╗    ██╗
-	██╔══██╗██╔═══██╗██╔══██╗        ██║   ██║    ██╔═████╗  ███║
-	██████╔╝██║   ██║███████║        ██║   ██║    ██║██╔██║  ╚██║
-	██╔══██╗██║   ██║██╔══██║        ╚██╗ ██╔╝    ████╔╝██║   ██║
-	██████╔╝╚██████╔╝██║  ██║         ╚████╔╝     ╚██████╔╝██╗██║
-	╚═════╝  ╚═════╝ ╚═╝  ╚═╝          ╚═══╝       ╚═════╝ ╚═╝╚═╝
+	すし - v 0.1
 `
 )
 

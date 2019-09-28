@@ -3,9 +3,9 @@ package evaluator
 import (
 	"fmt"
 
-	"github.com/dudewhocode/boa/ast"
+	"github.com/dudewhocode/sushi/ast"
 
-	"github.com/dudewhocode/boa/object"
+	"github.com/dudewhocode/sushi/object"
 )
 
 var (
