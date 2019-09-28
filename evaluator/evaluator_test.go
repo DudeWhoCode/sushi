@@ -4,9 +4,9 @@ import (
 	"math"
 	"testing"
 
-	"github.com/dudewhocode/boa/lexer"
-	"github.com/dudewhocode/boa/object"
-	"github.com/dudewhocode/boa/parser"
+	"github.com/dudewhocode/sushi/lexer"
+	"github.com/dudewhocode/sushi/object"
+	"github.com/dudewhocode/sushi/parser"
 	"github.com/google/go-cmp/cmp"
 )
 

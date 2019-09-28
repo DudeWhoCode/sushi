@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"github.com/dudewhocode/boa/token"
+	"github.com/dudewhocode/sushi/token"
 )
 
 type Lexer struct {

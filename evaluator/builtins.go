@@ -3,7 +3,7 @@ package evaluator
 import (
 	"fmt"
 
-	"github.com/dudewhocode/boa/object"
+	"github.com/dudewhocode/sushi/object"
 )
 
 var builtins = map[string]*object.Builtin{

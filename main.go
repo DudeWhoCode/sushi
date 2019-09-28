@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/dudewhocode/boa/repl"
+	"github.com/dudewhocode/sushi/repl"
 )
 
 func main() {
