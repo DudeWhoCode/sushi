@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"log"
 
 	"github.com/dudewhocode/sushi/object"
 
@@ -19,21 +20,70 @@ const (
 `
 )
 
+func isStartBlock(b byte) bool {
+	startBlocks := map[byte]bool{
+		'{': true,
+		'(': true,
+		'[': true,
+	}
+	if _, ok := startBlocks[b]; ok {
+		return true
+	}
+
+	return false
+}
+
+func isEndBlock(b byte) bool {
+	endBlocks := map[byte]bool{
+		'}': true,
+		')': true,
+		']': true,
+	}
+	if _, ok := endBlocks[b]; ok {
+		return true
+	}
+
+	return false
+}
+
 func Start(in io.Reader, out io.Writer) {
+	stack := NewStack()
 	scanner := bufio.NewScanner(in)
 	env := object.NewEnvironment()
 	io.WriteString(out, WELCOME)
 	io.WriteString(out, "\n")
+	var line []byte
 	for {
 		fmt.Printf(PROMT)
 		scanned := scanner.Scan()
 		if !scanned {
 			return
 		}
-		line := scanner.Text()
+		currentLine := scanner.Bytes()
+		log.Println("current line length: ", len(currentLine))
+		if len(currentLine) == 0 {
+			continue
+		}
+
+		lastCh := currentLine[len(currentLine)-1]
+		if isStartBlock(lastCh) {
+			stack.push(lastCh)
+			line = append(line, currentLine...)
+			log.Println("Pushed to stack and continuing: ", string(lastCh))
+			continue
+		}
+		if isEndBlock(lastCh) {
+			// you don't care about what char is getting popped out, you leave it to the parser to handle the closing block
+			ch := stack.pop()
+			log.Println("Popped from stack: ", string(ch))
+		}
+		if stack.count != 0 {
+			log.Println("Stack is not empty, continuing")
+			continue
+		}
 
 		// Interpreter creates a new lexer for every new line
-		l := lexer.New(line)
+		l := lexer.New(string(line))
 		p := parser.New(l)
 
 		program := p.ParseProgram()
