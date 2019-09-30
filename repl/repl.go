@@ -82,6 +82,7 @@ func Start(in io.Reader, out io.Writer) {
 			io.WriteString(out, evaluated.Inspect())
 			io.WriteString(out, "\n")
 		}
+		line = []byte{}
 	}
 }
 
