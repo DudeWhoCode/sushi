@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"log"
 
 	"github.com/dudewhocode/sushi/object"
 
@@ -60,27 +59,14 @@ func Start(in io.Reader, out io.Writer) {
 			return
 		}
 		currentLine := scanner.Bytes()
-		log.Println("current line length: ", len(currentLine))
-		if len(currentLine) == 0 {
-			continue
-		}
+		pushStartBlock(currentLine, stack)
+		popEndBlock(currentLine, stack)
 
-		lastCh := currentLine[len(currentLine)-1]
-		if isStartBlock(lastCh) {
-			stack.push(lastCh)
-			line = append(line, currentLine...)
-			log.Println("Pushed to stack and continuing: ", string(lastCh))
-			continue
-		}
-		if isEndBlock(lastCh) {
-			// you don't care about what char is getting popped out, you leave it to the parser to handle the closing block
-			ch := stack.pop()
-			log.Println("Popped from stack: ", string(ch))
-		}
 		if stack.count != 0 {
-			log.Println("Stack is not empty, continuing")
+			line = append(line, currentLine...)
 			continue
 		}
+		line = append(line, currentLine...)
 
 		// Interpreter creates a new lexer for every new line
 		l := lexer.New(string(line))
