@@ -20,30 +20,30 @@ const (
 `
 )
 
-func isStartBlock(b byte) bool {
+func pushStartBlock(line []byte, stack *stack) {
 	startBlocks := map[byte]bool{
 		'{': true,
 		'(': true,
 		'[': true,
 	}
-	if _, ok := startBlocks[b]; ok {
-		return true
+	for _, b := range line {
+		if _, ok := startBlocks[b]; ok {
+			stack.push(b)
+		}
 	}
-
-	return false
 }
 
-func isEndBlock(b byte) bool {
+func popEndBlock(line []byte, stack *stack) {
 	endBlocks := map[byte]bool{
 		'}': true,
 		')': true,
 		']': true,
 	}
-	if _, ok := endBlocks[b]; ok {
-		return true
+	for _, b := range line {
+		if _, ok := endBlocks[b]; ok {
+			stack.pop()
+		}
 	}
-
-	return false
 }
 
 func Start(in io.Reader, out io.Writer) {
