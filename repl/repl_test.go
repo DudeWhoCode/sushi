@@ -62,6 +62,15 @@ func TestPushPopBlocks(t *testing.T) {
 			NewStack(),
 			1,
 		},
+		{"FunctionWrongBraces",
+			[]byte(
+				`let a = fn(
+					x, y} {
+						return x + y
+					) `),
+			NewStack(),
+			0,
+		},
 	}
 
 	for _, tt := range tests {
