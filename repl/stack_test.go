@@ -5,7 +5,7 @@ import "testing"
 func TestStringStack(t *testing.T) {
 	s := NewStack()
 	tests := []struct {
-		input rune
+		input byte
 	}{
 		{'{'},
 		{'('},
