@@ -19,26 +19,23 @@ const (
 `
 )
 
-func pushStartBlock(line []byte, stack *stack) {
-	startBlocks := map[byte]bool{
-		'{': true,
-		'(': true,
-		'[': true,
-	}
+var startBlocks = map[byte]bool{
+	'{': true,
+	'(': true,
+	'[': true,
+}
+
+var endBlocks = map[byte]bool{
+	'}': true,
+	')': true,
+	']': true,
+}
+
+func pushPopBlocks(line []byte, stack *stack) {
 	for _, b := range line {
 		if _, ok := startBlocks[b]; ok {
 			stack.push(b)
 		}
-	}
-}
-
-func popEndBlock(line []byte, stack *stack) {
-	endBlocks := map[byte]bool{
-		'}': true,
-		')': true,
-		']': true,
-	}
-	for _, b := range line {
 		if _, ok := endBlocks[b]; ok {
 			stack.pop()
 		}
@@ -59,8 +56,7 @@ func Start(in io.Reader, out io.Writer) {
 			return
 		}
 		currentLine := scanner.Bytes()
-		pushStartBlock(currentLine, stack)
-		popEndBlock(currentLine, stack)
+		pushPopBlocks(currentLine, stack)
 
 		if stack.count != 0 {
 			line = append(line, currentLine...)
