@@ -32,11 +32,11 @@ var endBlocks = map[byte]bool{
 }
 
 func pushPopBlocks(line []byte, stack *stack) {
-	for _, b := range line {
-		if _, ok := startBlocks[b]; ok {
-			stack.push(b)
+	for _, ch := range line {
+		if _, ok := startBlocks[ch]; ok {
+			stack.push(ch)
 		}
-		if _, ok := endBlocks[b]; ok {
+		if _, ok := endBlocks[ch]; ok {
 			stack.pop()
 		}
 	}
