@@ -1,0 +1,4 @@
+github.com/dudewhocode/sushi v0.0.0-20191002051246-b2bfd355e7e1 h1:FJ2Frlip4cKuszPJA/Flb0eBgJOSD7CH8VXvgdAEyCs=
+github.com/dudewhocode/sushi v0.0.0-20191002051246-b2bfd355e7e1/go.mod h1:yIDZu05oKBcs7MWDMMzr8TiIAd/WgXsPspptsCqRRLQ=
+github.com/google/go-cmp v0.3.0 h1:crn/baboCvb5fXaQ0IJ1SGTsTVrWpDsCWC8EGETZijY=
+github.com/google/go-cmp v0.3.0/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMywk6iLU=
